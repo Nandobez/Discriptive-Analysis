@@ -1,0 +1,380 @@
+\documentclass{exam}
+
+% Pacotes
+\usepackage[12pt]{extsizes}
+\usepackage[utf8]{inputenc}
+\usepackage[export]{adjustbox}
+\usepackage[portuguese]{babel}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{float} % Para usar [H]
+\usepackage{svg}
+
+% Configurações de espaçamento
+\setlength{\parskip}{1em}
+\setlength{\parindent}{3em}
+\graphicspath{{tabelas/}}
+
+% Numeração de seções e subseções
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\arabic{subsection}}
+
+% Definição de cores
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+% Título, autor e data
+\title{\Large Estudo Descritivo dos Crimes Violentos Letais Intencionais no Ceará (CVLI) -- Período de 2020 a 2024}
+\author{Gabriel Oliveira \\ Fernando Bezerra}
+\date{Março de 2025}
+
+\begin{document}
+
+% Página de rosto
+\begin{figure}[t]
+    \centering
+    \includegraphics[scale=0.3]{uniforlogo.png}
+    \caption{Logo da Universidade de Fortaleza (Unifor)}
+    \label{fig:uniforlogo}
+\end{figure}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+
+% Sumário
+\renewcommand{\contentsname}{Sumário}
+\tableofcontents
+\newpage
+
+% Seção: Introdução
+\section{Introdução}
+A análise descritiva de dados é uma ferramenta fundamental para compreender padrões e tendências em diversas áreas, incluindo a segurança pública. No estado do Ceará, a Secretaria da Segurança Pública e Defesa Social (SSPDS/CE), por meio da Gerência de Estatística e Geoprocessamento (GEESP/SUPESP), coleta e sistematiza dados sobre crimes, oferecendo um panorama detalhado da criminalidade.
+
+Este estudo tem como objetivo realizar uma análise descritiva dos Crimes Violentos Letais Intencionais (CVLI) no Ceará, abrangendo o período de 2020 a 2024, utilizando a linguagem R no ambiente RStudio. Os dados analisados provêm de fontes oficiais, como o Sistema de Informações Policiais (SIP/SIP3W) e relatórios da Perícia Forense (PEFOCE), garantindo a confiabilidade das informações.
+
+Por meio de estatísticas descritivas, busca-se identificar tendências, padrões sazonais e variações na incidência desses crimes ao longo do período analisado. Essa abordagem permite uma melhor compreensão do fenômeno da violência no estado e contribui para a formulação de estratégias de segurança pública mais eficazes, auxiliando gestores, pesquisadores e a sociedade na interpretação dos dados de criminalidade.
+
+% Seção: Objetivo Geral
+\section{Objetivo Geral}
+O objetivo geral deste estudo é realizar uma análise descritiva dos Crimes Violentos Letais Intencionais (CVLI) no estado do Ceará, no período de 2020 a 2024, utilizando a linguagem R no ambiente RStudio. A partir do tratamento e da exploração dos dados fornecidos pela Secretaria da Segurança Pública e Defesa Social (SSPDS/CE), pretende-se identificar padrões, variações temporais e possíveis tendências na incidência desses crimes.
+
+Essa análise visa oferecer uma visão detalhada e estatisticamente fundamentada da evolução da criminalidade no estado, contribuindo para uma compreensão mais aprofundada do fenômeno e fornecendo subsídios para o desenvolvimento de políticas públicas e estratégias de segurança mais eficazes.
+
+% Seção: Análise e Interpretação dos Dados
+\section{Análise e Interpretação dos Dados}
+\begin{questions}
+
+% Questão 1: Frequências Simples e Relativas
+\question 
+\textit{Frequências simples e relativas} são ferramentas fundamentais neste estudo dos Crimes Violentos Letais Intencionais (CVLI) no Ceará, de 2020 a 2024, para descrever a distribuição de variáveis categóricas, como "Gênero", "Meio Empregado" e "Escolaridade da Vítima". A frequência simples contabiliza o número absoluto de ocorrências por categoria, oferecendo uma visão direta da quantidade de casos (ex.: 15.022 vítimas masculinas). Já a frequência relativa, expressa em porcentagem do total (ex.: 90,77\% masculino), permite comparações proporcionais entre categorias, independentemente do tamanho da amostra. Neste contexto, elas ajudam a identificar padrões predominantes e desigualdades, como a prevalência de homens e do uso de armas de fogo (85,94\%) nos crimes. Essas medidas são cruciais para traçar o perfil das vítimas e os contextos dos CVLI, fornecendo \textit{insights} claros a gestores e pesquisadores. Sua simplicidade facilita a comunicação dos resultados à sociedade, enquanto a relativização possibilita comparações com outros estudos ou regiões. Assim, constituem a base da análise descritiva inicial, orientando interpretações e estratégias de segurança pública no Ceará.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rlrr}
+        \toprule
+        & \textbf{Natureza} & \textbf{Frequência} & \textbf{Frequência Relativa (\%)} \\ 
+        \midrule
+        1 & Feminicídio & 170,00 & 1,03 \\ 
+        2 & Homicídio Doloso & 16.088,00 & 97,21 \\ 
+        3 & Lesão Corporal Seguida de Morte & 92,00 & 0,56 \\ 
+        4 & Roubo Seguido de Morte (Latrocínio) & 200,00 & 1,21 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Frequência por Natureza do Crime}
+    \label{tab:freq_natureza}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rlrr}
+        \toprule
+        & \textbf{Meio Empregado} & \textbf{Frequência} & \textbf{Frequência Relativa (\%)} \\ 
+        \midrule
+        1 & Arma Branca & 1.385,00 & 8,37 \\ 
+        2 & Arma de Fogo & 14.223,00 & 85,94 \\ 
+        3 & Outros Meios & 942,00 & 5,69 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Frequência por Meio Empregado}
+    \label{tab:freq_meio}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rlrr}
+        \toprule
+        & \textbf{Gênero} & \textbf{Frequência} & \textbf{Frequência Relativa (\%)} \\ 
+        \midrule
+        1 & Feminino & 1.528,00 & 9,23 \\ 
+        2 & Masculino & 15.022,00 & 90,77 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Frequência por Gênero}
+    \label{tab:freq_genero}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rlrr}
+        \toprule
+        & \textbf{Escolaridade da Vítima} & \textbf{Frequência} & \textbf{Frequência Relativa (\%)} \\ 
+        \midrule
+        1 & Alfabetizado & 5.451,00 & 32,94 \\ 
+        2 & Ensino Fundamental Completo & 2.046,00 & 12,36 \\ 
+        3 & Ensino Fundamental Incompleto & 3.330,00 & 20,12 \\ 
+        4 & Ensino Médio Completo & 1.710,00 & 10,33 \\ 
+        5 & Ensino Médio Incompleto & 1.154,00 & 6,97 \\ 
+        6 & Não Alfabetizado & 673,00 & 4,07 \\ 
+        7 & Não Informada & 1.968,00 & 11,89 \\ 
+        8 & Superior Completo & 123,00 & 0,74 \\ 
+        9 & Superior Incompleto & 95,00 & 0,57 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Frequência por Escolaridade da Vítima}
+    \label{tab:freq_escolaridade}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rlrr}
+        \toprule
+        & \textbf{Raça da Vítima} & \textbf{Frequência} & \textbf{Frequência Relativa (\%)} \\ 
+        \midrule
+        1 & Amarela & 11,00 & 0,07 \\ 
+        2 & Branca & 623,00 & 3,76 \\ 
+        3 & Indígena & 16,00 & 0,10 \\ 
+        4 & Não Informada & 11.558,00 & 69,84 \\ 
+        5 & Parda & 4.083,00 & 24,67 \\ 
+        6 & Preta & 259,00 & 1,56 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Frequência por Raça da Vítima}
+    \label{tab:freq_raca}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rlrr}
+        \toprule
+        & \textbf{Dia da Semana} & \textbf{Frequência} & \textbf{Frequência Relativa (\%)} \\ 
+        \midrule
+        1 & Domingo & 2.898,00 & 17,51 \\ 
+        2 & Quarta-feira & 2.170,00 & 13,11 \\ 
+        3 & Quinta-feira & 2.132,00 & 12,88 \\ 
+        4 & Sábado & 2.835,00 & 17,13 \\ 
+        5 & Segunda-feira & 2.168,00 & 13,10 \\ 
+        6 & Sexta-feira & 2.297,00 & 13,88 \\ 
+        7 & Terça-feira & 2.050,00 & 12,39 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Frequência por Dia da Semana}
+    \label{tab:freq_dia_semana}
+\end{table}
+
+% Questão 2: Tabelas Cruzadas
+\question 
+\textit{Tabelas cruzadas} são empregadas neste estudo dos Crimes Violentos Letais Intencionais (CVLI) no Ceará, de 2020 a 2024, para analisar a relação entre pares de variáveis categóricas, como "Meio Empregado vs. Gênero" e "Escolaridade da Vítima vs. Raça da Vítima". Elas exibem a frequência simples de ocorrências para cada combinação de categorias, permitindo identificar padrões ou associações entre os fatores. Por exemplo, a tabela "Meio Empregado vs. Gênero" revela a predominância de armas de fogo em vítimas masculinas (13.056) e femininas (1.167), sugerindo uma tendência geral no método dos crimes. Já a tabela "Escolaridade vs. Raça" mostra a variação da escolaridade entre grupos raciais, embora o elevado número de "Não Informada" limite conclusões. Essas tabelas são fundamentais para explorar interações entre variáveis, oferecendo uma visão detalhada do perfil das vítimas e dos contextos dos CVLI. Elas auxiliam na detecção de desigualdades ou vulnerabilidades específicas, como a exposição de certos grupos a determinados meios de violência. Assim, enriquecem a análise descritiva, fornecendo subsídios para políticas de segurança pública mais direcionadas e informadas no Ceará.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rlrr}
+        \toprule
+        & \textbf{Meio Empregado} & \textbf{Feminino} & \textbf{Masculino} \\ 
+        \midrule
+        1 & Arma Branca & 233 & 1.152 \\ 
+        2 & Arma de Fogo & 1.167 & 13.056 \\ 
+        3 & Outros Meios & 128 & 814 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Tabela Cruzada: Meio Empregado vs. Gênero}
+    \label{tab:cruzada_meio_genero}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{rlrrrrrr}
+        \toprule
+        & \textbf{Escolaridade da Vítima} & \textbf{Amarela} & \textbf{Branca} & \textbf{Indígena} & \textbf{Não Informada} & \textbf{Parda} & \textbf{Preta} \\ 
+        \midrule
+        1 & Alfabetizado & 4 & 197 & 4 & 3.799 & 1.350 & 97 \\ 
+        2 & Ensino Fundamental Completo & 2 & 76 & 2 & 1.358 & 582 & 26 \\ 
+        3 & Ensino Fundamental Incompleto & 1 & 134 & 7 & 2.164 & 959 & 65 \\ 
+        4 & Ensino Médio Completo & 1 & 102 & 0 & 1.132 & 455 & 20 \\ 
+        5 & Ensino Médio Incompleto & 3 & 52 & 0 & 782 & 299 & 18 \\ 
+        6 & Não Alfabetizado & 0 & 12 & 1 & 478 & 166 & 16 \\ 
+        7 & Não Informada & 0 & 39 & 0 & 1.687 & 226 & 16 \\ 
+        8 & Superior Completo & 0 & 9 & 2 & 85 & 26 & 1 \\ 
+        9 & Superior Incompleto & 0 & 2 & 0 & 73 & 20 & 0 \\ 
+        \bottomrule
+    \end{tabular}}
+    \caption{Tabela Cruzada: Escolaridade da Vítima vs. Raça da Vítima}
+    \label{tab:cruzada_escolaridade_raca}
+\end{table}
+
+% Questão 3: Gráficos de Distribuição por Gênero e Meio Empregado
+\question 
+\textit{Gráficos de distribuição por gênero e meio empregado} são utilizados neste estudo dos Crimes Violentos Letais Intencionais (CVLI) no Ceará, de 2020 a 2024, para representar visualmente a frequência relativa dessas variáveis categóricas, facilitando a compreensão imediata dos dados. O gráfico de "Gênero" destaca a desproporção entre vítimas masculinas (90,77\%) e femininas (9,23\%), evidenciando a maior vulnerabilidade dos homens de forma clara e acessível. Já o gráfico de "Meio Empregado" mostra a predominância de armas de fogo (85,94\%) sobre armas brancas (8,37\%) e outros meios (5,69\%), ilustrando o método mais comum nos crimes. Esses gráficos são essenciais, pois transformam números em imagens intuitivas, permitindo identificar padrões rapidamente, como a prevalência de certos tipos de violência. Eles complementam as tabelas de frequência, tornando os resultados mais comunicáveis a públicos diversos, incluindo gestores e a sociedade. Além disso, a visualização ajuda a direcionar o foco para áreas críticas, como o controle de armas de fogo ou a proteção de grupos específicos. Assim, são ferramentas poderosas para a análise e divulgação dos dados dos CVLI no Ceará.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{Genero}
+    \caption{Distribuição por Gênero -- CVLI (2020-2024)}
+    \label{fig:grafico_genero}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{Meio}
+    \caption{Distribuição por Meio Empregado -- CVLI (2020-2024)}
+    \label{fig:grafico_meio}
+\end{figure}
+
+% Questão 4: Gráficos de Barras: Vítimas e Dias da Semana
+\question 
+\textit{Gráficos de barras: Vítimas e dias da semana} são empregados neste estudo dos Crimes Violentos Letais Intencionais (CVLI) no Ceará, de 2020 a 2024, para ilustrar a distribuição das ocorrências de forma visual e intuitiva, destacando variações e padrões temporais. O gráfico de "Vítimas" exibe a frequência total de casos por categoria (ex.: gênero ou natureza), permitindo uma comparação direta da magnitude dos crimes entre grupos. Já o gráfico de "Dias da Semana" mostra a frequência dos CVLI em cada dia (ex.: 17,51\% aos domingos, 17,13\% aos sábados), revelando picos de incidência, como nos finais de semana. Esses gráficos são utilizados porque transformam dados numéricos em representações gráficas fáceis de interpretar, evidenciando tendências sazonais ou comportamentais. Eles auxiliam na identificação de dias de maior risco, essencial para planejar ações de segurança pública, como reforço policial em períodos específicos. Além disso, a visualização em barras facilita a comunicação dos resultados a diferentes públicos, desde pesquisadores até tomadores de decisão. Assim, enriquecem a análise descritiva, oferecendo uma perspectiva clara e prática sobre os CVLI no Ceará.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{Vit}
+    \caption{Distribuição por Vítimas -- CVLI (2020-2024)}
+    \label{fig:grafico_vitimas}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{DSem}
+    \caption{Distribuição por Dias da Semana -- CVLI (2020-2024)}
+    \label{fig:grafico_dia_semana}
+\end{figure}
+
+% Questão 5: Gráfico de Linhas: Data e Hora
+\question 
+\textit{Gráfico de linhas: Data e hora} os gráficos de linhas para "Homicídios por Ano" e "Homicídios por Hora Inteira" foram criados para analisar a distribuição temporal dos Crimes Violentos Letais Intencionais (CVLI) no Ceará entre 2020 e 2024. O gráfico por ano permite visualizar a tendência geral dos homicídios ao longo do período, identificando se houve aumento, redução ou estabilidade na criminalidade anual. Já o gráfico por hora inteira examina a variação dos crimes ao longo do dia, destacando os horários mais críticos (ex.: picos à noite ou madrugada). Ambos utilizam linhas para enfatizar a continuidade e a evolução dos dados, facilitando a percepção de padrões. O eixo y do gráfico de anos foi ajustado para intervalos de 100, oferecendo maior granularidade na leitura dos valores, enquanto o de horas mantém uma escala automática para clareza. Esses gráficos são ferramentas essenciais para estudos criminológicos, auxiliando na formulação de políticas públicas de segurança. Eles foram gerados em R e salvos como imagens para integração no LaTeX, combinando análise quantitativa e apresentação visual. Assim, contribuem para uma compreensão detalhada da dinâmica temporal dos CVLI.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{Ano}
+    \caption{Gráfico de Linha dos Anos -- CVLI (2020-2024)}
+    \label{fig:grafico_de_ano}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{Hora}
+    \caption{Gráfico de Linha de Horas -- CVLI (2020-2024)}
+    \label{fig:grafico_dia_semana}
+\end{figure}
+
+% Questão 6: Medidas de Posição e Separatrizes
+\question 
+\textit{Medidas de posição e separatrizes}, as medidas de posição (média, mediana e moda) e as separatrizes (quartis, decis e percentis) são essenciais neste estudo dos Crimes Violentos Letais Intencionais (CVLI) no Ceará, de 2020 a 2024, para resumir e descrever a variável "Idade da Vítima". A média indica a idade típica das vítimas, oferecendo uma visão geral do centro dos dados, enquanto a mediana, menos sensível a extremos, revela a idade central, dividindo o conjunto ao meio. A moda destaca a idade mais frequente, apontando picos de vulnerabilidade etária. Já as separatrizes, como os quartis (Q1, Q2, Q3), dividem os dados em partes iguais, mostrando a distribuição das idades: Q1 indica que 25\% das vítimas são mais jovens que esse valor, e Q3, que 75\% estão abaixo dele. Decis e percentis refinam essa análise, detalhando faixas específicas (ex.: P10 e P90) e permitindo identificar onde se concentram 10\% ou 90\% das idades. Essas medidas são usadas para traçar o perfil etário das vítimas, revelando tendências e variações que podem guiar políticas de segurança pública. Combinadas, oferecem uma compreensão robusta da centralidade e da distribuição dos dados, sendo cruciais para interpretar a dinâmica da violência no Ceará.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lr}
+        \toprule
+        \textbf{Medida} & \textbf{Valor (anos)} \\ 
+        \midrule
+        Média & 30,63 \\ 
+        Mediana & 28,00 \\ 
+        Moda & 24,00 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Medidas de Posição da Idade da Vítima -- CVLI (2020-2024)}
+    \label{tab:medidas_posicao_idade}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lrrrrr}
+        \toprule
+        \textbf{Separatriz} & \textbf{P10} & \textbf{P25} & \textbf{P50} & \textbf{P75} & \textbf{P90} \\ 
+        \midrule
+        Quartis & -- & 22,00 & 28,00 & 37,00 & -- \\ 
+        Decis & 18,00 & 21,00 & 28,00 & 35,00 & 47,00 \\ 
+        Percentis & 18,00 & 22,00 & 28,00 & 37,00 & 47,00 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Separatrizes da Idade da Vítima -- CVLI (2020-2024)}
+    \label{tab:separatrizes_idade}
+\end{table}
+
+% Questão 7: Medidas de Dispersão
+\question 
+\textit{Medidas de dispersão}, como amplitude, variância, desvio padrão, coeficiente de variação e erro padrão, são fundamentais neste estudo dos Crimes Violentos Letais Intencionais (CVLI) no Ceará, de 2020 a 2024, para avaliar a variabilidade da variável "Idade da Vítima". Elas indicam o quão espalhadas ou concentradas estão as idades em relação à média, complementando as medidas de posição. A amplitude revela a diferença entre a idade máxima e mínima, oferecendo uma visão inicial da extensão dos dados. A variância e o desvio padrão quantificam a dispersão média, ajudando a entender se as idades variam pouco (valores baixos) ou muito (valores altos), o que pode refletir diferentes perfis de vítimas. O coeficiente de variação permite comparar a dispersão relativa, útil para contextualizar a consistência dos dados em relação à média etária. Já o erro padrão estima a precisão da média, sendo relevante para avaliar a confiabilidade das conclusões em uma amostra grande como esta (16.028 valores). Essas medidas são usadas para identificar padrões de vulnerabilidade etária e possíveis heterogeneidades no fenômeno da violência. Assim, fornecem uma análise mais completa, essencial para embasar estratégias de segurança pública e interpretar a complexidade dos CVLI no Ceará.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lrr}
+        \toprule
+        \textbf{Medida} & \textbf{Valor} & \textbf{Unidade} \\ 
+        \midrule
+        Amplitude & 93,00 & anos \\ 
+        Variância & 140,50 & anos² \\ 
+        Desvio Padrão & 11,85 & anos \\ 
+        Coeficiente de Variação & 38,70 & \% \\ 
+        Erro Padrão & 0,09 & anos \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Medidas de Dispersão da Idade da Vítima -- CVLI (2020-2024)}
+    \label{tab:medidas_dispersao_idade}
+\end{table}
+
+% Questão 8: Gráfico de Boxplot
+\question 
+\textit{Gráfico de boxplot} é uma ferramenta gráfica essencial neste estudo dos Crimes Violentos Letais Intencionais (CVLI) no Ceará, de 2020 a 2024, pois permite visualizar de forma clara e concisa a distribuição da variável "Idade da Vítima". Ele é utilizado para identificar a dispersão dos dados, destacando o valor mínimo, o primeiro quartil (Q1), a mediana, o terceiro quartil (Q3) e o valor máximo, além de revelar possíveis \textit{outliers}. Neste contexto, o boxplot ajuda a compreender a faixa etária predominante das vítimas, mostrando, por exemplo, se a maioria está concentrada em idades jovens ou se há variações significativas. Isso é crucial para detectar padrões de vulnerabilidade etária e auxiliar na formulação de políticas de segurança pública direcionadas. Além disso, a identificação de \textit{outliers} pode indicar casos excepcionais, como vítimas muito jovens ou idosas, que merecem atenção especial. Sua simplicidade e capacidade de resumir estatísticas descritivas tornam o boxplot ideal para complementar as tabelas e gráficos já apresentados, enriquecendo a análise com uma perspectiva visual imediata. Assim, ele contribui para uma interpretação mais robusta e acessível dos dados, sendo uma ponte entre a análise técnica e a comunicação dos resultados.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lr}
+        \toprule
+        \textbf{Estatística} & \textbf{Valor (anos)} \\ 
+        \midrule
+        Mínimo & 0 \\ 
+        Q1 & 22 \\ 
+        Mediana & 28 \\ 
+        Q3 & 37 \\ 
+        Máximo & 59 \\ 
+        Outliers exemplo & 74, 65, 76 \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Estatísticas do Boxplot da Idade da Vítima -- CVLI (2020-2024)}
+    \label{tab:boxplot_idade}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=0.7]{Boxp}
+    \caption{Boxplot da Idade da Vítima -- CVLI (2020-2024)}
+    \label{fig:boxplot_idade}
+\end{figure}
+
+\end{questions}
+
+% Seção: Conclusão
+\section{Conclusão}
+Este estudo teve como objetivo analisar uma base de dados referente aos Crimes Violentos Letais Intencionais (CVLI) ocorridos no estado do Ceará, no período de 2020 a 2024. Foi realizada uma análise detalhada considerando variáveis como escolaridade e raça das vítimas, entre outras, com os resultados apresentados por meio de gráficos e tabelas que facilitam a visualização das informações e a geração de \textit{insights} sobre o tema.
+
+O cruzamento dos dados revelou informações significativas sobre o perfil das vítimas. Observou-se que o número de vítimas do sexo masculino é aproximadamente dez vezes maior que o de vítimas do sexo feminino, evidenciando uma maior vulnerabilidade desse grupo. Em relação à raça, a análise foi prejudicada pelo elevado número de registros sem essa informação, o que impossibilitou conclusões precisas sobre o impacto racial nos crimes. Esses achados destacam a necessidade de aprimoramentos na coleta de dados para uma compreensão mais completa do perfil das vítimas e dos fatores associados a esses crimes.
+
+% Seção: Referências Bibliográficas
+\section{Referências Bibliográficas}
+SECRETARIA DA SEGURANÇA PÚBLICA E DEFESA SOCIAL DO CEARÁ. \textbf{Crimes Violentos Letais Intencionais no Ceará CVLI – Ano 2020-2024}: \textit{Relatório Anual}. Fortaleza: SSPDS, 2025. Disponível em: \url{https://www.sspds.ce.gov.br/wp-content/uploads/sites/24/2025/01/CVLI-Anual.pdf}. Acesso em: 21 mar. 2025.
+
+SECRETARIA DA SEGURANÇA PÚBLICA E DEFESA SOCIAL DO CEARÁ. \textbf{Indicadores de Segurança Pública}: \textit{Estatísticas Oficiais}. Fortaleza: SSPDS, [s.d.]. Disponível em: \url{https://www.sspds.ce.gov.br/indicadores-de-seguranca-publica}. Acesso em: 21 mar. 2025.
+
+R CORE TEAM. \textbf{R: A Language and Environment for Statistical Computing}: \textit{Documentação Oficial}. Vienna: R Foundation for Statistical Computing, 2025. Disponível em: \url{https://www.r-project.org/}. Acesso em: 21 mar. 2025.
+
+TRIOLA, M. F. \textbf{Introdução à Estatística}: \textit{Um Guia Prático}. 13. ed. Rio de Janeiro: LTC, 2018.
+
+xAI. \textbf{Grok AI}: \textit{Ferramenta para Resolução de Bugs}. [S.l.]: xAI, 2025. Disponível em: \url{https://docs.x.ai/docs/overview}. Acesso em: 21 mar. 2025.
+
+\end{document}
